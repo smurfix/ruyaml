@@ -1,0 +1,6 @@
+/files
+/python3-ruyaml/
+/.debhelper/
+/*-stamp
+/*.debhelper
+/*.substvars
