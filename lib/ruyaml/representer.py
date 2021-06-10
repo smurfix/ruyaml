@@ -871,7 +871,7 @@ class RoundTripRepresenter(SafeRepresenter):
                 for ct in node.comment[1]:
                     ct.reset()
             item_comments = comment.items
-            if self.dumper.comment_handling is None:
+            if self.dumper.comment_handling is None:  # type: ignore
                 for v in item_comments.values():
                     if v and v[1]:
                         for ct in v[1]:

@@ -11,6 +11,12 @@ from collections.abc import Hashable, MutableMapping, MutableSequence  # type: i
 
 from ruyaml.comments import *  # NOQA
 from ruyaml.comments import (
+    C_KEY_EOL,
+    C_KEY_POST,
+    C_KEY_PRE,
+    C_VALUE_EOL,
+    C_VALUE_POST,
+    C_VALUE_PRE,
     CommentedKeyMap,
     CommentedKeySeq,
     CommentedMap,
@@ -18,12 +24,10 @@ from ruyaml.comments import (
     CommentedSeq,
     CommentedSet,
     TaggedScalar,
-    C_KEY_PRE, C_KEY_EOL, C_KEY_POST,
-    C_VALUE_PRE, C_VALUE_EOL, C_VALUE_POST,
 )
-from ruyaml.compat import _F  # , nprint
-from ruyaml.compat import builtins_module  # NOQA; NOQA
+from ruyaml.compat import builtins_module  # NOQA
 from ruyaml.compat import ordereddict  # type: ignore
+from ruyaml.compat import _F, nprintf
 
 # fmt: off
 from ruyaml.error import (
@@ -116,8 +120,8 @@ class BaseConstructor:
         # type: () -> Any
         # needed to get to the expanded comments
         if hasattr(self.loader, 'typ'):
-            return self.loader.scanner
-        return self.loader._scanner
+            return self.loader.scanner  # type: ignore
+        return self.loader._scanner  # type: ignore
 
     def check_data(self):
         # type: () -> Any
@@ -1110,7 +1114,7 @@ class RoundTripConstructor(SafeConstructor):
 
     def comment(self, idx):
         # type: (Any) -> Any
-        assert self.loader.comment_handling is not None
+        assert self.loader.comment_handling is not None  # type: ignore
         x = self.scanner.comments[idx]
         x.set_assigned()
         return x
@@ -1550,7 +1554,11 @@ class RoundTripConstructor(SafeConstructor):
             value = self.construct_object(value_node, deep=deep)
             if self.check_mapping_key(node, key_node, maptyp, key, value):
                 if self.loader and self.loader.comment_handling is None:
-                    if key_node.comment and len(key_node.comment) > 4 and key_node.comment[4]:
+                    if (
+                        key_node.comment
+                        and len(key_node.comment) > 4
+                        and key_node.comment[4]
+                    ):
                         if last_value is None:
                             key_node.comment[0] = key_node.comment.pop(4)
                             maptyp._yaml_add_comment(key_node.comment, value=last_key)
@@ -1775,7 +1783,7 @@ class RoundTripConstructor(SafeConstructor):
                 data.yaml_set_tag(node.tag)
                 yield data
                 if node.anchor:
-                    from ruamel.yaml.serializer import templated_id
+                    from ruyaml.serializer import templated_id
 
                     if not templated_id(node.anchor):
                         data.yaml_set_anchor(node.anchor)
@@ -1788,7 +1796,7 @@ class RoundTripConstructor(SafeConstructor):
                 data2.yaml_set_tag(node.tag)
                 yield data2
                 if node.anchor:
-                    from ruamel.yaml.serializer import templated_id
+                    from ruyaml.serializer import templated_id
 
                     if not templated_id(node.anchor):
                         data2.yaml_set_anchor(node.anchor, always_dump=True)
@@ -1803,7 +1811,7 @@ class RoundTripConstructor(SafeConstructor):
                 data3.yaml_set_tag(node.tag)
                 yield data3
                 if node.anchor:
-                    from ruamel.yaml.serializer import templated_id
+                    from ruyaml.serializer import templated_id
 
                     if not templated_id(node.anchor):
                         data3.yaml_set_anchor(node.anchor)

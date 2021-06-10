@@ -10,7 +10,14 @@
 import sys
 
 # fmt: off
-from ruyaml.compat import _F, DBG_EVENT, check_anchorname_char, dbg, nprint, nprintf
+from ruyaml.compat import (  # NOQA
+    _F,
+    DBG_EVENT,
+    check_anchorname_char,
+    dbg,
+    nprint,
+    nprintf,
+)
 from ruyaml.error import YAMLError, YAMLStreamError
 from ruyaml.events import *  # NOQA
 

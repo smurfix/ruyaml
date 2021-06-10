@@ -81,20 +81,20 @@ ChangeLog
 
 0.17.8 (2021-06-09):
   - fix for issue 387 where templated anchors on tagged object did get set
-    resulting in potential id reuse. (reported by `Artem Ploujnikov 
+    resulting in potential id reuse. (reported by `Artem Ploujnikov
     <https://sourceforge.net/u/flexthink/>`__)
 
 0.17.7 (2021-05-31):
-  - issue 385 also affected other deprecated loaders (reported via email 
+  - issue 385 also affected other deprecated loaders (reported via email
     by Oren Watson)
 
 0.17.6 (2021-05-31):
-  - merged type annotations update provided by 
+  - merged type annotations update provided by
     `Jochen Sprickerhof <https://sourceforge.net/u/jspricke/>`__
   - fix for issue 385: deprecated round_trip_loader function not working
     (reported by `Mike Gouline <https://sourceforge.net/u/gouline/>`__)
   - wasted a few hours getting rid of mypy warnings/errors
-  
+
 0.17.5 (2021-05-30):
   - fix for issue 384 !!set with aliased entry resulting in broken YAML on rt
     reported by  `William Kimball <https://sourceforge.net/u/william303/>`__)

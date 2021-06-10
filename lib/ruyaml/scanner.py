@@ -29,9 +29,10 @@
 #
 
 import inspect
-from ruyaml.error import MarkedYAMLError, CommentMark  # NOQA
-from ruyaml.tokens import *  # NOQA
+
 from ruyaml.compat import _F, check_anchorname_char, nprint, nprintf  # NOQA
+from ruyaml.error import CommentMark, MarkedYAMLError  # NOQA
+from ruyaml.tokens import *  # NOQA
 
 if False:  # MYPY
     from typing import Any, Dict, List, Optional, Text, Union  # NOQA
@@ -1282,7 +1283,9 @@ class Scanner:
                     # Keep track of the trailing whitespace and following comments
                     # as a comment token, if isn't all included in the actual value.
                     comment_end_mark = self.reader.get_mark()
-                    comment = CommentToken("".join(trailing), end_mark, comment_end_mark)
+                    comment = CommentToken(
+                        "".join(trailing), end_mark, comment_end_mark
+                    )
                     token.add_post_comment(comment)
         return token
 
@@ -2047,7 +2050,16 @@ KEYCMNT = 0  # 1
 
 
 class CommentBase:
-    __slots__ = ('value', 'line', 'column', 'used', 'function', 'fline', 'ufun', 'uline')
+    __slots__ = (
+        'value',
+        'line',
+        'column',
+        'used',
+        'function',
+        'fline',
+        'ufun',
+        'uline',
+    )
 
     def __init__(self, value, line, column):
         # type: (Any, Any, Any) -> None
@@ -2193,7 +2205,9 @@ class ScannedComments:
         while len(self.unused) > 0:
             first = self.unused.pop(0) if use else self.unused[0]
             info = inspect.getframeinfo(inspect.stack()[1][0])
-            xprintf('using', first, self.comments[first].value, info.function, info.lineno)
+            xprintf(
+                'using', first, self.comments[first].value, info.function, info.lineno
+            )
             yield first, self.comments[first]
             if use:
                 self.comments[first].set_used()

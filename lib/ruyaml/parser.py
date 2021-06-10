@@ -74,16 +74,20 @@
 # and for Jython too
 
 
+from ruyaml.comments import C_POST, C_PRE, C_SPLIT_ON_FIRST_BLANK
+from ruyaml.compat import _F, nprint, nprintf  # NOQA
 from ruyaml.error import MarkedYAMLError
 from ruyaml.events import *  # NOQA
-from ruyaml.scanner import RoundTripScanner, Scanner, ScannerError  # NOQA
-from ruyaml.scanner import BlankLineComment
-from ruyaml.comments import C_PRE, C_POST, C_SPLIT_ON_FIRST_BLANK
-from ruyaml.compat import _F, nprint, nprintf  # NOQA
+from ruyaml.scanner import (  # NOQA
+    BlankLineComment,
+    RoundTripScanner,
+    Scanner,
+    ScannerError,
+)
 from ruyaml.tokens import *  # NOQA
 
 if False:  # MYPY
-    from typing import Any, Dict, Optional, List  # NOQA
+    from typing import Any, Dict, List, Optional  # NOQA
 
 __all__ = ['Parser', 'RoundTripParser', 'ParserError']
 
@@ -168,7 +172,9 @@ class Parser:
                 self.current_event = self.state()
         # assert self.current_event is not None
         # if self.current_event.end_mark.line != self.peek_event().start_mark.line:
-        xprintf('get_event', repr(self.current_event), self.peek_event().start_mark.line)
+        xprintf(
+            'get_event', repr(self.current_event), self.peek_event().start_mark.line
+        )
         self.last_event = value = self.current_event
         self.current_event = None
         return value
@@ -878,7 +884,9 @@ class RoundTripParser(Parser):
 
     def move_token_comment(self, token, nt=None, empty=False):
         # type: (Any, Optional[Any], Optional[bool]) -> Any
-        token.move_old_comment(self.scanner.peek_token() if nt is None else nt, empty=empty)
+        token.move_old_comment(
+            self.scanner.peek_token() if nt is None else nt, empty=empty
+        )
 
 
 class RoundTripParserSC(RoundTripParser):
@@ -889,7 +897,9 @@ class RoundTripParserSC(RoundTripParser):
 
     def move_token_comment(self, token, nt=None, empty=False):
         # type: (Any, Any, Any, Optional[bool]) -> None
-        token.move_new_comment(self.scanner.peek_token() if nt is None else nt, empty=empty)
+        token.move_new_comment(
+            self.scanner.peek_token() if nt is None else nt, empty=empty
+        )
 
     def distribute_comment(self, comment, line):
         # type: (Any, Any) -> Any

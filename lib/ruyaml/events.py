@@ -45,10 +45,10 @@ class Event:
             if SHOW_LINES:
                 arguments.append(
                     '({}:{}/{}:{})'.format(
-                        self.start_mark.line,
-                        self.start_mark.column,
-                        self.end_mark.line,
-                        self.end_mark.column,
+                        self.start_mark.line,  # type: ignore
+                        self.start_mark.column,  # type: ignore
+                        self.end_mark.line,  # type: ignore
+                        self.end_mark.column,  # type: ignore
                     )
                 )
             arguments = ', '.join(arguments)  # type: ignore
@@ -59,7 +59,10 @@ class Event:
                 if hasattr(self, key)
             ]
             arguments = ', '.join(
-                [_F('{k!s}={attr!r}', k=key, attr=getattr(self, key)) for key in attributes]
+                [
+                    _F('{k!s}={attr!r}', k=key, attr=getattr(self, key))
+                    for key in attributes
+                ]
             )
             if self.comment not in [None, CommentCheck]:
                 arguments += ', comment={!r}'.format(self.comment)
@@ -152,7 +155,9 @@ class DocumentEndEvent(Event):
 class AliasEvent(NodeEvent):
     __slots__ = 'style'
 
-    def __init__(self, anchor, start_mark=None, end_mark=None, style=None, comment=None):
+    def __init__(
+        self, anchor, start_mark=None, end_mark=None, style=None, comment=None
+    ):
         # type: (Any, Any, Any, Any, Any) -> None
         NodeEvent.__init__(self, anchor, start_mark, end_mark, comment)
         self.style = style

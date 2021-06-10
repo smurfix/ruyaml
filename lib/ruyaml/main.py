@@ -9,7 +9,14 @@ from io import BytesIO, StringIO
 from typing import Any, List, Optional, Text, Union
 
 import ruyaml
-from ruyaml.compat import StreamTextType, StreamType, VersionType, nprint, nprintf
+from ruyaml.comments import C_PRE, CommentedMap, CommentedSeq
+from ruyaml.compat import (  # NOQA
+    StreamTextType,
+    StreamType,
+    VersionType,
+    nprint,
+    nprintf,
+)
 from ruyaml.constructor import (
     BaseConstructor,
     Constructor,
@@ -32,7 +39,6 @@ from ruyaml.representer import (
 )
 from ruyaml.resolver import Resolver, VersionedResolver  # NOQA
 from ruyaml.tokens import *  # NOQA
-from ruyaml.comments import CommentedMap, CommentedSeq, C_PRE
 
 if False:  # MYPY
     from pathlib import Path

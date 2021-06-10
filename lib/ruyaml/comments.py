@@ -12,8 +12,9 @@ from collections.abc import Mapping, MutableSet, Set, Sized
 from typing import Any, Dict, Iterator, List, Optional, Union
 
 from ruyaml.anchor import Anchor
-from ruyaml.compat import ordereddict  # type: ignore
-from ruyaml.compat import _F, MutableSliceableSequence, nprintf
+from ruyaml.compat import nprintf  # NOQA
+from ruyaml.compat import ordereddict  # NOQA; type: ignore
+from ruyaml.compat import _F, MutableSliceableSequence
 from ruyaml.scalarstring import ScalarString
 
 if False:  # MYPY
@@ -35,7 +36,9 @@ __all__ = ['CommentedSeq', 'CommentedKeySeq',
 # bits 0 and 1 are combined, you can choose only one
 C_POST = 0b00
 C_PRE = 0b01
-C_SPLIT_ON_FIRST_BLANK = 0b10  # as C_POST, but if blank line then C_PRE all lines before
+C_SPLIT_ON_FIRST_BLANK = (
+    0b10  # as C_POST, but if blank line then C_PRE all lines before
+)
 # first blank goes to POST even if no following real FLC
 # (first blank -> first of post)
 # 0b11 -> reserved for future use

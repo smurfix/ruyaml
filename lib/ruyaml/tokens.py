@@ -29,7 +29,8 @@ class Token:
         #  [_F('{key!s}={gattr!r})', key=key, gattr=getattr(self, key)) for key in attributes]
         # )
         arguments = [
-            _F('{key!s}={gattr!r}', key=key, gattr=getattr(self, key)) for key in attributes
+            _F('{key!s}={gattr!r}', key=key, gattr=getattr(self, key))
+            for key in attributes
         ]
         if SHOW_LINES:
             try:
@@ -199,7 +200,9 @@ class Token:
         # if self and target have both pre, eol or post comments, something seems wrong
         for idx in range(3):
             if c[idx] is not None and tc[idx] is not None:
-                raise NotImplementedError(_F('overlap in comment {c!r} {tc!r}', c=c, tc=tc))
+                raise NotImplementedError(
+                    _F('overlap in comment {c!r} {tc!r}', c=c, tc=tc)
+                )
         # move the comment parts
         for idx in range(3):
             if c[idx]:
